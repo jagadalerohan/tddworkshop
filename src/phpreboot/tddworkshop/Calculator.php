@@ -10,9 +10,10 @@
 		/**
 		 * Function for addition 
 		 * @param string $number
+		 * @param string $method
 		 * @return integer
 		 */
-		public function add($numbers = '')
+		public function calculation($numbers = '', $method = 'add')
 		{
 	        if (empty($numbers)) {
             	return 0;
@@ -39,6 +40,10 @@
 
         	$numbersRange = array_filter( $numbersArray, function( $val ) { return   (1000>$val); } );
 
-        	return array_sum($numbersRange);
+        	if ($method == 'add') {
+				return array_sum($numbersRange);
+        	} elseif ($method == 'mul') {
+        		return array_product($numbersRange);
+        	}
 		}
 	}

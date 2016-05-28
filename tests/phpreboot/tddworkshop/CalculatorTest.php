@@ -26,21 +26,21 @@ class CaltulatorTest extends \PHPUnit_Framework_TestCase
 	// Test for add returns an integer
 	public function testAddReturnsAnInteger()
 	{
-        $result = $this->calculator->add();
+        $result = $this->calculator->calculation();
         $this->assertInternalType('integer', $result, 'Result of `add` is not an integer.');
 	}
 
 	// Test for add for zero parameters
 	public function testAddWithoutparameterReturnsZero()
 	{
-        $result = $this->calculator->add();
+        $result = $this->calculator->calculation();
         $this->assertSame(0, $result, 'Empty string on add do not return 0');
 	}
 
 	// Test for add single number return same number
 	public function testAddWithSingleNumberReturnsSameNumber()
 	{
-        $result = $this->calculator->add('3');
+        $result = $this->calculator->calculation('3');
         $this->assertSame(3, $result, 'Add with single number do not returns same number');
 
 	}
@@ -48,7 +48,7 @@ class CaltulatorTest extends \PHPUnit_Framework_TestCase
 	// Test for add two parameter return sum 
 	public function testAddWithTwoParametersReturnsTheirSum()
     {
-        $result = $this->calculator->add('2,4');
+        $result = $this->calculator->calculation('2,4');
         $this->assertSame(6, $result, 'Add with two parameter do not returns correct sum');
     }
 
@@ -58,7 +58,7 @@ class CaltulatorTest extends \PHPUnit_Framework_TestCase
       */
      public function  testAddWithNonStringParameterThrowsException()
      {
-         $this->calculator->add(5, 'Integer parameter do not throw error');
+         $this->calculator->calculation(5, 'Integer parameter do not throw error');
      }
 
     /**
@@ -67,7 +67,7 @@ class CaltulatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddWithNonNumbersThrowException()
     {
-        $this->calculator->add('1,a', 'Invalid parameter do not throw exception');
+        $this->calculator->calculation('1,a', 'Invalid parameter do not throw exception');
     }
 
     /**
@@ -76,7 +76,7 @@ class CaltulatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testMultipleNumberString($numbers, $expectedResult)
     {
-    	$result = $this->calculator->add($numbers);
+    	$result = $this->calculator->calculation($numbers);
     	$this->assertSame($result, $expectedResult, 'The result does not match expected result');
     }
 
@@ -99,7 +99,7 @@ class CaltulatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddForSpecialCharactors()
     {
-		$result = $this->calculator->add('2\n3,4');
+		$result = $this->calculator->calculation('2\n3,4');
 		$this->assertSame($result, 9, 'The result does not match expected result');
     }
 
@@ -108,7 +108,7 @@ class CaltulatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddForSpecialCharactorsTest4()
     {
-		$result = $this->calculator->add('\\;\\3;4;5');
+		$result = $this->calculator->calculation('\\;\\3;4;5');
 		$this->assertSame($result, 12, 'The result does not match expected result');
     }
 
@@ -118,7 +118,7 @@ class CaltulatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testNegativeNumber() 
     {
-    	$this->calculator->add('\\,\\2,7,-3,5,-2', 'Negative numbers not allowed.');	
+    	$this->calculator->calculation('\\,\\2,7,-3,5,-2', 'Negative numbers not allowed.');	
     }
 
     /**
@@ -126,7 +126,17 @@ class CaltulatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testNumberGreaterThanThousand() 
     {
-    	$result = $this->calculator->add('10,20,1010,20');
+    	$result = $this->calculator->calculation('10,20,1010,20');
 		$this->assertSame($result, 50, 'The result does not match expected result');
+    }
+
+
+    /**
+     *  Test for numbers greater than 1000 for multiplication
+     */
+    public function testNumberGreaterThanThousandMultiplication() 
+    {
+    	$result = $this->calculator->calculation('10,20,1010,20', 'mul');
+		$this->assertSame($result, 4000, 'The result does not match expected result');
     }
 } 

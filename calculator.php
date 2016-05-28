@@ -14,7 +14,11 @@ try {
 	switch ($argv[1]) {
 		case 'add' :
 			$numbers = isset($argv[2]) ? $argv[2] : '';
-			echo $calculator->add($numbers) . PHP_EOL;
+			echo $calculator->calculation($numbers, 'add') . PHP_EOL;
+			break;
+		case 'mul' :
+			$numbers = isset($argv[2]) ? $argv[2] : '';
+			echo $calculator->calculation($numbers, 'mul') . PHP_EOL;
 			break;
 		default:
 			echo 'Please check the operator.' . PHP_EOL;
